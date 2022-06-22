@@ -1,0 +1,18 @@
+{
+  "name": "ucanto_test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@ucanto/authority": "^0.4.0",
+    "@ucanto/client": "^0.3.0",
+    "@ucanto/server": "^0.4.0",
+    "@ucanto/transport": "^0.4.0",
+    "node-fetch": "^3.2.6"
+  }
+}
