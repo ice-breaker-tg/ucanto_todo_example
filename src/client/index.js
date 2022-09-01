@@ -24,7 +24,7 @@ const setup = async () => {
   const json = await res.json();
   const audience = json.did;
   return {
-    id,
+    issuer: id,
     audience,
   };
 };
@@ -45,11 +45,11 @@ yargs(process.argv.slice(2))
     'create a new todo',
     () => {},
     async ({ title }) => {
-      const { id, audience } = await setup();
+      const { issuer, audience } = await setup();
       try {
         const response = await client.add({
-          issuer: id,
-          audience: audience,
+          issuer,
+          audience,
           caveats: {
             title,
           },
@@ -65,11 +65,11 @@ yargs(process.argv.slice(2))
     'complete a todo',
     () => {},
     async ({ title }) => {
-      const { id, audience } = await setup();
+      const { issuer, audience } = await setup();
       try {
         const response = await client.update({
-          issuer: id,
-          audience: audience,
+          issuer,
+          audience,
           caveats: {
             title,
             done: true,
@@ -86,11 +86,11 @@ yargs(process.argv.slice(2))
     'mark a todo as not done',
     () => {},
     async ({ title }) => {
-      const { id, audience } = await setup();
+      const { issuer, audience } = await setup();
       try {
         const response = await client.update({
-          issuer: id,
-          audience: audience,
+          issuer,
+          audience,
           caveats: {
             title,
             done: false,
@@ -102,17 +102,16 @@ yargs(process.argv.slice(2))
       }
     }
   )
-
   .command(
     'remove <title>',
     'remove a todo',
     () => {},
     async ({ title }) => {
-      const { id, audience } = await setup();
+      const { issuer, audience } = await setup();
       try {
         const response = await client.remove({
-          issuer: id,
-          audience: audience,
+          issuer,
+          audience,
           caveats: {
             title,
           },
@@ -128,10 +127,10 @@ yargs(process.argv.slice(2))
     'list all todos',
     () => {},
     async ({ title }) => {
-      const { id, audience } = await setup();
+      const { issuer, audience } = await setup();
       const response = await client.list({
-        issuer: id,
-        audience: audience,
+        issuer,
+        audience,
       });
       console.log('response', JSON.stringify(response, null, 2));
     }

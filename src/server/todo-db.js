@@ -9,10 +9,13 @@ export class TodoDB {
       var existing = this.db.get(user);
       if (!existing.find((x) => x.title == title)) {
         this.db.set(user, [...existing, ...todos]);
+      } else {
+        return null;
       }
     } else {
       this.db.set(user, todos);
     }
+    return { title, done: false };
   }
   list(user) {
     return this.db.has(user) ? this.db.get(user) : [];
@@ -24,8 +27,10 @@ export class TodoDB {
       if (todo) {
         const updated = { ...todo, done };
         this.db.set(user, [...todos.filter((x) => x.title != title), updated]);
+        return updated;
       }
     }
+    return null;
   }
   remove(user, todo) {
     if (this.db.has(user)) {
@@ -33,6 +38,8 @@ export class TodoDB {
         user,
         this.db.get(user).filter((x) => x.title != todo.title)
       );
+      return true;
     }
+    return null;
   }
 }

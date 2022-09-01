@@ -14,7 +14,8 @@ export function provider({ todoDB }) {
         async ({ capability, context, invocation }) => {
           const user = capability.with;
           const { title } = capability.caveats;
-          todoDB.add(user, { title });
+          const added = todoDB.add(user, { title });
+          return added || new Server.Failure(`${title} already exists.`);
         }
       ),
       list: Server.provide(
@@ -29,13 +30,17 @@ export function provider({ todoDB }) {
         async ({ capability, context, invocation }) => {
           const user = capability.with;
           const { title, done } = capability.caveats;
-          todoDB.update(user, { title, done });
+          const updated = todoDB.update(user, { title, done });
+          return updated || new Server.Failure(`${title} does not exist.`);
         }
       ),
       remove: Server.provide(todoRemove, async ({ capability }) => {
         const user = capability.with;
         const { title } = capability.caveats;
-        todoDB.remove(user, { title });
+        const removed = todoDB.remove(user, { title });
+        return removed
+          ? `${title} removed.`
+          : new Server.Failure(`${title} does not exist.`);
       }),
     },
   };
