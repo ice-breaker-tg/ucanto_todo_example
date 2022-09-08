@@ -1,4 +1,5 @@
 import * as API from '@ucanto/interface';
+import { Failure } from '@ucanto/server';
 // import { Failure } from '../error.js';
 
 export const decode = (input, { protocol } = {}) => {
@@ -26,14 +27,22 @@ export const match = (options) => ({
   //   decode: (input) => decode(input, options),
 });
 
-export const withMinLength = (length) => ({
-  decode: (input) => {
-    if (input.length < length) {
-      throw `String should be longer than: ${length}`;
+export function withMinLength(length = 0) {
+  /**
+   * @param {string} input
+   * @returns {import('@ucanto/server').Result<string, Failure>}
+   */
+  function minLength(input) {
+    const inputLength = input?.length || 0;
+    if (inputLength < length) {
+      return new Failure(`String should be longer than: ${length}`);
     }
-    return input;
-  },
-});
+    return input || '';
+  }
+  return {
+    decode: minLength,
+  };
+}
 
 /**
  * @template {`${string}:`} Protocol

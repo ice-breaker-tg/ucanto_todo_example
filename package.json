@@ -9,6 +9,7 @@
     "@ucanto/validator": "^0.6.0",
     "@web-std/fetch": "^4.1.0",
     "conf": "^10.2.0",
+    "cross-fetch": "^3.1.5",
     "express": "^4.18.1",
     "yargs": "^17.5.1"
   }

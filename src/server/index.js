@@ -1,9 +1,9 @@
 import http from 'http';
-import { TodoDB } from './todo-db.js';
+import { TodoDB } from './todo/db.js';
 const hostname = '0.0.0.0';
 const port = 3000;
 
-import { createServer, did } from './todo-server.js';
+import { createServer, did } from './todo/server.js';
 const todoServer = await createServer({ todoDB: new TodoDB() });
 
 async function bodyToBuffer(req) {

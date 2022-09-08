@@ -46,16 +46,16 @@ export const derives = (claimed, delegated) => {
     return new Failure(
       `Expected 'with: "${delegated.uri.href}"' instead got '${claimed.uri.href}'`
     );
-  } else if (
-    delegated.caveats.link &&
-    `${delegated.caveats.link}` !== `${claimed.caveats.link}`
-  ) {
-    return new Failure(
-      `Link ${
-        // eslint-disable-next-line unicorn/no-null
-        claimed.caveats.link == null ? '' : `${claimed.caveats.link} `
-      }violates imposed ${delegated.caveats.link} constraint`
-    );
+    //   } else if (
+    //     delegated.caveats.link &&
+    //     `${delegated.caveats.link}` !== `${claimed.caveats.link}`
+    //   ) {
+    //     return new Failure(
+    //       `Link ${
+    //         // eslint-disable-next-line unicorn/no-null
+    //         claimed.caveats.link == null ? '' : `${claimed.caveats.link} `
+    //       }violates imposed ${delegated.caveats.link} constraint`
+    //     );
   } else {
     return true;
   }

@@ -2,7 +2,7 @@ import * as Server from '@ucanto/server';
 import * as CAR from '@ucanto/transport/car';
 import * as CBOR from '@ucanto/transport/cbor';
 import { SigningAuthority } from '@ucanto/authority';
-import { provider } from './todo-provider.js';
+import { provider } from './provider.js';
 
 const secret = await SigningAuthority.generate();
 export const did = await secret.did();
